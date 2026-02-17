@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(docker compose up:*)",
+      "Bash(docker compose:*)",
+      "Bash(TOKEN=\"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJjbWt6bXhjMGMwMDAxaGdraGV1emVyb2xyIiwib3JnSWQiOiJjbWt6bXhjMGMwMDAwaGdraGg3a3A3dmVnIiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNzY5NzAyMDc5LCJleHAiOjE3Njk3ODg0Nzl9.huA__cfA9586nqXM_0zdHBNhY9jR7wnnfWGZb753c_g\")",
+      "Bash(curl:*)",
+      "Bash(API_KEY=\"sa_0c8c51684a7c2f2608b1af4f1249a130f4a14bef5de5d5f904871d9dfbef7f21\")"
+    ]
+  }
+}

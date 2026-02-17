@@ -1,0 +1,13 @@
+{
+  "name": "silentauth",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "docker compose up --build",
+    "down": "docker compose down",
+    "reset": "docker compose down -v && docker compose up --build",
+    "db:studio": "cd packages/database && npx prisma studio"
+  }
+}
