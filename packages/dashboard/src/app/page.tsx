@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { api } from "@/lib/api";
 
 interface AuthResponse {
@@ -16,6 +16,11 @@ export default function HomePage() {
   const [orgName, setOrgName] = useState("");
   const [error, setError] = useState("");
   const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    const saved = localStorage.getItem("sa_token");
+    if (saved) setToken(saved);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -63,6 +68,12 @@ export default function HomePage() {
           >
             View Sessions
           </a>
+          <button
+            onClick={() => { localStorage.removeItem("sa_token"); setToken(null); window.location.reload(); }}
+            className="rounded-lg border border-gray-700 px-4 py-2 text-sm font-medium text-red-400 hover:bg-gray-800"
+          >
+            Sign Out
+          </button>
         </div>
       </div>
     );
