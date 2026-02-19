@@ -3,6 +3,7 @@ import cors from "cors";
 import authRoutes from "./routes/auth.routes";
 import projectRoutes from "./routes/project.routes";
 import sessionRoutes from "./routes/session.routes";
+import adminRoutes from "./routes/admin.routes";
 
 const app = express();
 const PORT = parseInt(process.env.PORT ?? "4000", 10);
@@ -19,6 +20,7 @@ app.get("/health", (_req, res) => {
 app.use("/api/auth", authRoutes);
 app.use("/api/projects", projectRoutes);
 app.use("/api/sessions", sessionRoutes);
+app.use("/api/admin", adminRoutes);
 
 // ── Start ──────────────────────────────────────────────
 app.listen(PORT, "0.0.0.0", () => {

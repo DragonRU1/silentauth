@@ -34,9 +34,16 @@ export type CreateSessionInput = z.infer<typeof CreateSessionSchema>;
 export type VerifySessionInput = z.infer<typeof VerifySessionSchema>;
 
 // ── Auth Types ───────────────────────────────────────────────────
+export const UpdateOrgStatusSchema = z.object({
+  active: z.boolean(),
+});
+
+export type UpdateOrgStatusInput = z.infer<typeof UpdateOrgStatusSchema>;
+
+// ── Auth Types ───────────────────────────────────────────────────
 export interface JwtPayload {
   userId: string;
-  orgId: string;
+  orgId: string | null;
   role: string;
 }
 

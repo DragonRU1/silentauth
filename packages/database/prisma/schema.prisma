@@ -10,6 +10,7 @@ datasource db {
 model Organization {
   id        String   @id @default(cuid())
   name      String
+  active    Boolean  @default(true)
   users     User[]
   projects  Project[]
   createdAt DateTime @default(now()) @map("created_at")
@@ -19,19 +20,20 @@ model Organization {
 }
 
 model User {
-  id           String       @id @default(cuid())
-  email        String       @unique
-  passwordHash String       @map("password_hash")
-  role         UserRole     @default(MEMBER)
-  orgId        String       @map("org_id")
-  organization Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
-  createdAt    DateTime     @default(now()) @map("created_at")
-  updatedAt    DateTime     @updatedAt @map("updated_at")
+  id           String        @id @default(cuid())
+  email        String        @unique
+  passwordHash String        @map("password_hash")
+  role         UserRole      @default(MEMBER)
+  orgId        String?       @map("org_id")
+  organization Organization? @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
 
   @@map("users")
 }
 
 enum UserRole {
+  SUPER_ADMIN
   ADMIN
   MEMBER
 }

@@ -37,7 +37,7 @@ export async function login(input: LoginInput) {
   const valid = await bcrypt.compare(input.password, user.passwordHash);
   if (!valid) throw new AuthError("Invalid credentials");
 
-  const token = signToken({ userId: user.id, orgId: user.orgId, role: user.role });
+  const token = signToken({ userId: user.id, orgId: user.orgId ?? null, role: user.role });
   return { token, user: { id: user.id, email: user.email, role: user.role } };
 }
 

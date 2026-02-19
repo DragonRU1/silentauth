@@ -19,6 +19,26 @@ export function requireAuth(req: Request, res: Response, next: NextFunction): vo
   }
 }
 
+export function requireSuperAdmin(req: Request, res: Response, next: NextFunction): void {
+  const header = req.headers.authorization;
+  if (!header?.startsWith("Bearer ")) {
+    res.status(401).json({ error: "Missing or invalid Authorization header" });
+    return;
+  }
+
+  try {
+    const payload = verifyToken(header.slice(7));
+    if (payload.role !== "SUPER_ADMIN") {
+      res.status(403).json({ error: "Super-admin access required" });
+      return;
+    }
+    (req as AuthenticatedRequest).user = payload;
+    next();
+  } catch {
+    res.status(401).json({ error: "Invalid or expired token" });
+  }
+}
+
 export async function requireApiKey(req: Request, res: Response, next: NextFunction): Promise<void> {
   const header = req.headers["x-api-key"];
   if (typeof header !== "string") {
