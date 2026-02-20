@@ -7,7 +7,9 @@ if (!defined('ABSPATH')) {
 class SilentAuth_Public {
 
     public function enqueue_assets(): void {
-        if (!has_shortcode(get_post()->post_content ?? '', 'silentauth')) {
+        $post = get_post();
+        $content = $post ? $post->post_content : '';
+        if (!$content || !has_shortcode($content, 'silentauth')) {
             return;
         }
 
