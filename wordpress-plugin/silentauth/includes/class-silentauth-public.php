@@ -6,21 +6,20 @@ if (!defined('ABSPATH')) {
 
 class SilentAuth_Public {
 
-    public function enqueue_assets(): void {
-        $post = get_post();
-        $content = $post ? $post->post_content : '';
-        if (!$content || !has_shortcode($content, 'silentauth')) {
-            return;
-        }
+    private bool $assets_enqueued = false;
 
-        wp_enqueue_style(
+    /**
+     * Register scripts/styles so they can be enqueued later.
+     */
+    public function enqueue_assets(): void {
+        wp_register_style(
             'silentauth',
             SILENTAUTH_PLUGIN_URL . 'assets/css/silentauth.css',
             [],
             SILENTAUTH_VERSION
         );
 
-        wp_enqueue_script(
+        wp_register_script(
             'silentauth',
             SILENTAUTH_PLUGIN_URL . 'assets/js/silentauth.js',
             [],
@@ -39,6 +38,13 @@ class SilentAuth_Public {
      * Render [silentauth] shortcode.
      */
     public function render_shortcode($atts): string {
+        // Enqueue assets when shortcode is actually used
+        if (!$this->assets_enqueued) {
+            wp_enqueue_style('silentauth');
+            wp_enqueue_script('silentauth');
+            $this->assets_enqueued = true;
+        }
+
         $atts = shortcode_atts([
             'text' => get_option('silentauth_button_text', 'Verify'),
         ], $atts, 'silentauth');
