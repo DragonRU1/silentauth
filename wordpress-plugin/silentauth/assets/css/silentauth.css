@@ -1,0 +1,42 @@
+.silentauth-wrap {
+  display: inline-block;
+  margin: 8px 0;
+}
+
+.silentauth-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1;
+  color: #fff;
+  background: #4f46e5;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.silentauth-btn:hover {
+  background: #4338ca;
+}
+
+.silentauth-btn:disabled {
+  cursor: not-allowed;
+}
+
+.silentauth-btn.sa-loading {
+  background: #6366f1;
+  opacity: 0.8;
+}
+
+.silentauth-btn.sa-verified {
+  background: #16a34a;
+  cursor: default;
+}
+
+.silentauth-btn.sa-verified:hover {
+  background: #16a34a;
+}
