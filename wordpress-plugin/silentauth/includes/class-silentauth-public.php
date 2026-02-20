@@ -6,20 +6,18 @@ if (!defined('ABSPATH')) {
 
 class SilentAuth_Public {
 
-    private bool $assets_enqueued = false;
-
     /**
-     * Register scripts/styles so they can be enqueued later.
+     * Enqueue scripts and styles on all frontend pages.
      */
     public function enqueue_assets(): void {
-        wp_register_style(
+        wp_enqueue_style(
             'silentauth',
             SILENTAUTH_PLUGIN_URL . 'assets/css/silentauth.css',
             [],
             SILENTAUTH_VERSION
         );
 
-        wp_register_script(
+        wp_enqueue_script(
             'silentauth',
             SILENTAUTH_PLUGIN_URL . 'assets/js/silentauth.js',
             [],
@@ -38,12 +36,6 @@ class SilentAuth_Public {
      * Render [silentauth] shortcode.
      */
     public function render_shortcode($atts): string {
-        // Enqueue assets when shortcode is actually used
-        if (!$this->assets_enqueued) {
-            wp_enqueue_style('silentauth');
-            wp_enqueue_script('silentauth');
-            $this->assets_enqueued = true;
-        }
 
         $atts = shortcode_atts([
             'text' => get_option('silentauth_button_text', 'Verify'),
